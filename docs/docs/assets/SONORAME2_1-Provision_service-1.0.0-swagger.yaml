@@ -1,0 +1,309 @@
+openapi: 3.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/SONORAME2_1/Provision_service/1.0.0
+info:
+  version: "1.0.0"
+  title: Provision service API
+  description: API спецификация для сервиса услуг
+paths:
+  /services:
+    get:
+      tags:
+      - Сервис услуг
+      summary: Получить список услуг и подуслуг
+      security: []
+      description: |
+        Получение списка услуг и подуслуг.
+      operationId: getServices
+      parameters:
+      - $ref: '#/components/parameters/offsetParam'
+      - $ref: '#/components/parameters/limitParam'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        404:
+          $ref: '#/components/responses/404'
+    post:
+      tags:
+        - "Сервис услуг"
+      summary: Получить информацию о следующем этапе услуги
+      description: Отправить информацию о текущем статусе услуги, чтобы узнать следующий этап
+      operationId: getStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Stage'
+      responses:
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '401':
+          $ref: '#/components/responses/401'
+        '200':
+          description: ОК
+          content:
+            application/json:
+              schema:
+                required:
+                - messageIdrequest
+                - possibleStatus
+                type: object
+                properties:
+                  messageIdrequest:
+                      allOf:
+                        - $ref: '#/components/parameters/messageIdrequest'
+                      type: integer
+                  possibleStatus:
+                    type: array
+                    items:
+                      type: string
+                      example:
+                      - "Межведомственные запросы получены"
+                      - "Принятие решения"
+                      - "Отказано в предоставлении услуги"
+components:
+  schemas:
+    Service:
+      required:
+      - userId
+      - messageIdresponse
+      - serviceName
+      - serviceDesc
+      type: object
+      properties:
+        userId:
+            allOf:
+              - $ref: '#/components/parameters/userId'
+            type: integer
+        messageIdresponse:
+            allOf:
+              - $ref: '#/components/parameters/messageIdresponse'
+            type: integer
+        serviceName:
+          maxLength: 150
+          minLength: 2
+          type: string
+          description: Наименование регламента
+          nullable: false
+          example: "9477"
+        serviceDesc:
+          maxLength: 512
+          minLength: 2
+          type: string
+          description: Описание регламента
+          nullable: false
+          example: "Выдача градостроительного плана земельного участка"
+    Stage:
+      required:
+        - userId
+        - messageIdresponse
+        - serviceId
+        - currentStatus
+      type: object
+      properties:
+        userId:
+          allOf:
+            - $ref: '#/components/parameters/userId'
+          type: integer
+        messageIdresponse:
+          allOf:
+            - $ref: '#/components/parameters/messageIdresponse'
+          type: integer
+        serviceId:
+          allOf:
+            - $ref: '#/components/parameters/serviceId'
+          type: integer
+        currentStatus:
+          maxLength: 150
+          minLength: 2
+          type: string
+          description: Наименование регламента
+          nullable: false
+          example: "Межведомственные запросы направлены"
+  responses:
+    '200':
+      description: OK
+    auth200:
+      description: Аутентификация выполнена успешно
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+                example: 9038-20380-9340-98
+            required:
+              - token
+    '404':
+      description: Что-то пошло не так...
+      content:
+        application/json:
+          schema:
+            required:
+            - code
+            - errorId
+            - messageEn
+            - messageRu
+            type: object
+            properties:
+              errorId:
+                type: integer
+              code:
+                maximum: 599
+                minimum: 400
+                type: integer
+              messageRu:
+                maxLength: 500
+                minLength: 1
+                pattern: "([А-Яа-я0-9-]+)"
+                type: string
+                nullable: false
+              messageEn:
+                maxLength: 500
+                minLength: 1
+                pattern: "([A-Za-z0-9-]+)"
+                type: string
+                nullable: false
+            description: Текст сообщения об ошибке
+    '422':
+      description: Ошибка бизнес-логики
+      content:
+        application/json:
+          schema:
+            required:
+            - code
+            - message
+            type: object
+            properties:
+              code:
+                type: integer
+                description: Код ошибки
+              message:
+                type: string
+                description: Подробности ошибки
+                example: Невозможно получить статусы.
+    '401':
+      description: Недостаточно прав
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+  parameters:
+    serviceId:
+      name: serviceId
+      in: path
+      description: Уникальный ID регламента
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
+    messageIdrequest:
+      name: messageIdrequest
+      in: path
+      description: Уникальный ID сообщения запроса
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
+    messageIdresponse:
+      name: messageIdresponse
+      in: path
+      description: Уникальный ID сообщения ответа
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
+    userId:
+      name: userId
+      in: path
+      description: Уникальный ID пользователя
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
+    restId:
+      name: restId
+      in: path
+      description: Уникальный ID ресторана
+      required: true
+      style: simple
+      explode: false
+      schema:
+        type: integer
+    tableId:
+      name: tableId
+      in: path
+      description: Уникальный ID столика
+      required: true
+      style: simple
+      explode: false
+      # example: 5
+      schema:
+        type: integer
+    bookingId:
+      name: bookingId
+      in: path
+      description: Уникальный ID бронирования
+      required: true
+      style: simple
+      explode: false
+      # example: 10
+      schema:
+        type: integer
+    clientId:
+      name: clientId
+      in: path
+      description: Уникальный ID клиента
+      required: true
+      style: simple
+      explode: false
+      # example: 15
+      schema:
+        type: integer
+    offsetParam:
+      name: offset
+      in: query
+      description: Номер первого элемента на странице
+      required: false
+      style: form
+      explode: true
+      schema:
+        minimum: 1
+        type: integer
+        default: 1
+    limitParam:
+      name: limit
+      in: query
+      description: Количество элементов на странице
+      required: false
+      style: form
+      explode: true
+      schema:
+        maximum: 100
+        minimum: 5
+        type: integer
+        default: 20
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: apiKey
+      in: query
+security:
+  - apiKey: []
