@@ -18,6 +18,7 @@ paths:
       parameters:
       - $ref: '#/components/parameters/offsetParam'
       - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/serviceId'
       responses:
         '200':
           description: OK
@@ -46,7 +47,6 @@ paths:
                               type: string
                             service_level:
                               type: string
-                            # и т.д. для других свойств
                         subservice_list:
                           type: array
                           items:
@@ -58,14 +58,56 @@ paths:
                                 type: integer
                               max_period_units:
                                 type: string
-                              # и т.д. для других свойств
         '404':
           $ref: '#/components/responses/404'
+  
+  /services/new:
+    post:
+      tags:
+        - Сервис услуг
+      summary: Создать услугу
+      description: Создание новой услуги с передачей данных в формате base64
+      operationId: createService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message_id_request:
+                  type: integer
+                sys_component:
+                  type: string
+                data_service_base64:
+                  type: string
+                  format: byte
+                  description: Данные услуги в формате base64
+                upload_type:
+                  type: string
+                  description: Тип загрузки
+                user_name:
+                  type: string
+                  description: Имя пользователя
+      responses:
+        '200':
+          description: Успешная загрузка
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Информация о успешной загрузке
+        '404':
+          $ref: '#/components/responses/404'
+                  
   /services/stages:
     post:
       tags:
         - Сервис услуг
-      summary: Создать информацию об этапе целевой услуги
+      summary: Создать этап целевой услуги
       description: Создать информацию о целевом этапе целевой подуслуги
       operationId: create_stage
       requestBody:
@@ -103,7 +145,7 @@ paths:
     post:
       tags:
         - Сервис услуг
-      summary: Создать описание события с учетом результата текущего этапа
+      summary: Создать событие текущего этапа
       description: Создать описание необходимого события с учетом результата текущего этапа.
       operationId: create_events
       requestBody:
@@ -181,58 +223,8 @@ paths:
                                     type: string
                             push_message:
                               type: string
-  /services/{serviceId}:
-    get:
-      tags:
-        - Сервис услуг
-      summary: Получить информацию об определенной услуге
-      description: Получить информацию о конкретной услуге по её уникальному идентификатору
-      operationId: get_service_by_id
-      parameters:
-      - $ref: '#/components/parameters/serviceId'
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message_id_response:
-                    type: integer
-                  sys_component:
-                    type: string
-                  service_list:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        service_info:
-                          type: object
-                          properties:
-                            service_name:
-                              type: string
-                            service_id:
-                              type: string
-                            service_descr:
-                              type: string
-                            service_level:
-                              type: string
-                            # и т.д. для других свойств
-                        subservice_list:
-                          type: array
-                          items:
-                            type: object
-                            properties:
-                              subservice_name:
-                                type: string
-                              max_period:
-                                type: integer
-                              max_period_units:
-                                type: string
-                              # и т.д. для других свойств
-        404:
-          $ref: '#/components/responses/404'
+  
+
           
 components:
   responses:
@@ -332,13 +324,14 @@ components:
   parameters:
     serviceId:
       name: serviceId
-      in: path
+      in: query
       description: Уникальный ID регламента
-      required: true
-      style: simple
+      required: false
+      style: form
       explode: false
       schema:
         type: string
+        default: 1337
     offsetParam:
       name: offset
       in: query
