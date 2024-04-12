@@ -13,34 +13,131 @@ paths:
       - Сервис услуг
       summary: Получить список услуг и подуслуг
       security: []
-      description: |
-        Получение списка услуг и подуслуг.
-      operationId: getServices
+      description: Получение списка услуг и подуслуг
+      operationId: get_services
       parameters:
       - $ref: '#/components/parameters/offsetParam'
       - $ref: '#/components/parameters/limitParam'
+      - $ref: '#/components/parameters/serviceId'
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Service'
-        404:
+                type: object
+                properties:
+                  message_id_response:
+                    type: integer
+                  sys_component:
+                    type: string
+                  service_list:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        service_info:
+                          type: object
+                          properties:
+                            service_name:
+                              type: string
+                            service_id:
+                              type: string
+                            service_descr:
+                              type: string
+                            service_level:
+                              type: string
+                        subservice_list:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              subservice_name:
+                                type: string
+                              max_period:
+                                type: integer
+                              max_period_units:
+                                type: string
+        '404':
           $ref: '#/components/responses/404'
+  
+  /services/new:
     post:
       tags:
-        - "Сервис услуг"
-      summary: Получить информацию о следующем этапе услуги
-      description: Отправить информацию о текущем статусе услуги, чтобы узнать следующий этап
-      operationId: getStatus
+        - Сервис услуг
+      summary: Создать услугу
+      description: Создание новой услуги с передачей данных в формате base64
+      operationId: createService
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Stage'
+              type: object
+              properties:
+                message_id_request:
+                  type: integer
+                  default: 3144e32f-0cb3-456b-8436-e37d7cd7e579
+                sys_component:
+                  type: string
+                  default: Monolit_service
+                data_service_base64:
+                  type: string
+                  format: byte
+                  description: Данные услуги в формате base64
+                  default: aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
+                upload_type:
+                  type: string
+                  description: Тип загрузки
+                  default: hand
+                user_name:
+                  type: string
+                  description: Имя пользователя
+                  default: Иванов И.И.
+      responses:
+        '200':
+          description: Успешная загрузка
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Информация о успешной загрузке
+                    default: Успешная загрузка
+        '404':
+          $ref: '#/components/responses/404'
+                  
+  /services/stages:
+    post:
+      tags:
+        - Сервис услуг
+      summary: Создать этап целевой услуги
+      description: Создать информацию о целевом этапе целевой подуслуги
+      operationId: create_stage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message_id_request:
+                  type: integer
+                  description: Идентификатор сообщения запроса
+                sys_component:
+                  type: string
+                  description: Системный компонент
+                service_id:
+                  type: string
+                  description: Идентификатор услуги (регламента)
+                sub_service_id:
+                  type: string
+                  description: Идентификатор подуслуги
+                service_stage_id:
+                  type: integer
+                  description: Идентификатор текущего этапа обращения
       responses:
         '404':
           $ref: '#/components/responses/404'
@@ -49,101 +146,94 @@ paths:
         '401':
           $ref: '#/components/responses/401'
         '200':
-          description: ОК
+          $ref: '#/components/responses/200'
+  /services/events:
+    post:
+      tags:
+        - Сервис услуг
+      summary: Создать событие текущего этапа
+      description: Создать описание необходимого события с учетом результата текущего этапа.
+      operationId: create_events
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message_id_request:
+                  type: integer
+                sys_component:
+                  type: string
+                service_id:
+                  type: string
+                sub_service_id:
+                  type: string
+                service_stage_id:
+                  type: integer
+                service_result:
+                  type: object
+                  properties:
+                    result_name:
+                      type: string
+                    result_id:
+                      type: string
+      responses:
+        '404':
+          $ref: '#/components/responses/404'
+        '422':
+          $ref: '#/components/responses/422'
+        '401':
+          $ref: '#/components/responses/401'
+        '200':
+          description: Успешный ответ
           content:
             application/json:
               schema:
-                required:
-                - messageIdrequest
-                - possibleStatus
                 type: object
                 properties:
-                  messageIdrequest:
-                      allOf:
-                        - $ref: '#/components/parameters/messageIdrequest'
-                      type: integer
-                  possibleStatus:
+                  message_id_response:
+                    type: integer
+                  sys_component:
+                    type: string
+                  operations:
                     type: array
                     items:
-                      type: string
-                      example:
-                      - "Межведомственные запросы получены"
-                      - "Принятие решения"
-                      - "Отказано в предоставлении услуги"
+                      type: object
+                      properties:
+                        operation_name:
+                          type: string
+                        operation_id:
+                          type: string
+                        operation_type:
+                          type: string
+                        operation_info:
+                          type: object
+                          properties:
+                            stage_name:
+                              type: string
+                            stage_id:
+                              type: string
+                            status_name:
+                              type: string
+                            smev_message_namespace:
+                              type: string
+                            user_list:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: string
+                                  name:
+                                    type: string
+                            push_message:
+                              type: string
+  
+
+          
 components:
-  schemas:
-    Service:
-      required:
-      - userId
-      - messageIdresponse
-      - serviceName
-      - serviceDesc
-      type: object
-      properties:
-        userId:
-            allOf:
-              - $ref: '#/components/parameters/userId'
-            type: integer
-        messageIdresponse:
-            allOf:
-              - $ref: '#/components/parameters/messageIdresponse'
-            type: integer
-        serviceName:
-          maxLength: 150
-          minLength: 2
-          type: string
-          description: Наименование регламента
-          nullable: false
-          example: "9477"
-        serviceDesc:
-          maxLength: 512
-          minLength: 2
-          type: string
-          description: Описание регламента
-          nullable: false
-          example: "Выдача градостроительного плана земельного участка"
-    Stage:
-      required:
-        - userId
-        - messageIdresponse
-        - serviceId
-        - currentStatus
-      type: object
-      properties:
-        userId:
-          allOf:
-            - $ref: '#/components/parameters/userId'
-          type: integer
-        messageIdresponse:
-          allOf:
-            - $ref: '#/components/parameters/messageIdresponse'
-          type: integer
-        serviceId:
-          allOf:
-            - $ref: '#/components/parameters/serviceId'
-          type: integer
-        currentStatus:
-          maxLength: 150
-          minLength: 2
-          type: string
-          description: Наименование регламента
-          nullable: false
-          example: "Межведомственные запросы направлены"
   responses:
-    '200':
-      description: OK
-    auth200:
-      description: Аутентификация выполнена успешно
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              token:
-                type: string
-                example: 9038-20380-9340-98
-            required:
-              - token
     '404':
       description: Что-то пошло не так...
       content:
@@ -201,82 +291,53 @@ components:
             properties:
               error:
                 type: string
+    '200':
+      description: OK
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message_id_response:
+                type: integer
+              sys_component:
+                type: string
+              table_settings:
+                type: object
+                properties:
+                  columns:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        can_update:
+                          type: boolean
+              table_data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    value:
+                      type: string
+                    mask:
+                      type: string
+                    type:
+                      type: string
+                    on_click_operation:
+                      type: object
   parameters:
     serviceId:
       name: serviceId
-      in: path
+      in: query
       description: Уникальный ID регламента
-      required: true
-      style: simple
+      required: false
+      style: form
       explode: false
       schema:
-        type: integer
-    messageIdrequest:
-      name: messageIdrequest
-      in: path
-      description: Уникальный ID сообщения запроса
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: integer
-    messageIdresponse:
-      name: messageIdresponse
-      in: path
-      description: Уникальный ID сообщения ответа
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: integer
-    userId:
-      name: userId
-      in: path
-      description: Уникальный ID пользователя
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: integer
-    restId:
-      name: restId
-      in: path
-      description: Уникальный ID ресторана
-      required: true
-      style: simple
-      explode: false
-      schema:
-        type: integer
-    tableId:
-      name: tableId
-      in: path
-      description: Уникальный ID столика
-      required: true
-      style: simple
-      explode: false
-      # example: 5
-      schema:
-        type: integer
-    bookingId:
-      name: bookingId
-      in: path
-      description: Уникальный ID бронирования
-      required: true
-      style: simple
-      explode: false
-      # example: 10
-      schema:
-        type: integer
-    clientId:
-      name: clientId
-      in: path
-      description: Уникальный ID клиента
-      required: true
-      style: simple
-      explode: false
-      # example: 15
-      schema:
-        type: integer
+        type: string
+        default: 1337
     offsetParam:
       name: offset
       in: query
@@ -305,5 +366,8 @@ components:
       type: apiKey
       name: apiKey
       in: query
+      
 security:
   - apiKey: []
+externalDocs:
+  url: https://sonorame.github.io/docs_kcr
