@@ -77,18 +77,23 @@ paths:
               properties:
                 message_id_request:
                   type: integer
+                  default: 3144e32f-0cb3-456b-8436-e37d7cd7e579
                 sys_component:
                   type: string
+                  default: Monolit_service
                 data_service_base64:
                   type: string
                   format: byte
                   description: Данные услуги в формате base64
+                  default: aHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kUXc0dzlXZ1hjUQ==
                 upload_type:
                   type: string
                   description: Тип загрузки
+                  default: hand
                 user_name:
                   type: string
                   description: Имя пользователя
+                  default: Иванов И.И.
       responses:
         '200':
           description: Успешная загрузка
@@ -100,6 +105,7 @@ paths:
                   message:
                     type: string
                     description: Информация о успешной загрузке
+                    default: Успешная загрузка
         '404':
           $ref: '#/components/responses/404'
                   
