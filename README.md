@@ -1,6 +1,6 @@
-# Документация KCR
+## KCR Documentation
 
-Этот репозиторий содержит документацию локального проекта для компании Barsim. Документация содержит краткое описание проекта, описание требований, описание REST API и задачи для тестирования.
+This repository contains documentation for the local project for the company [Barsim](https://barsim.ru/). The documentation includes a brief project description, requirements description, REST API description, and testing tasks.
 
-## Ссылка на документацию
-[Документация KCR](https://sonorame.github.io/docs_kcr/)
+## Documentation link
+[Documentation KCR](https://sonorame.github.io/docs_kcr/)
