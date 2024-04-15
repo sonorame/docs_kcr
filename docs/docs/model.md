@@ -15,4 +15,4 @@
 
 ## Модель данных
 
-![](assets/images/db_design.svg)
+![](diagrams/out/db_design.svg)

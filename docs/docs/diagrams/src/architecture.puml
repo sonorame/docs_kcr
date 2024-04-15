@@ -4,78 +4,52 @@
 skinparam Linetype polyline
 skinparam wrapWidth 900
 
-Person(manager, "Менеджер")
-Person(client, "Представитель клиента")
+Person(client, "Заявитель")
 Person(user, "Пользователь")
 
-System_Boundary(bookingSystem, "Booking system"){
-    ContainerQueue(api, "API Gateway", "Azure API", "Взаимодействие с внешними сервисами, аутентификация клиентов и пользователей")
-
-       Container(webUI, "Web Application", "ASP.NET", "Веб-приложение для доступа к функциям системы бронирования")
-       Container(mobileApp, "Mobile App", "Flutter", "Мобильное приложение для доступа к функциям системы бронирования") 
+System_Boundary(serviceKCR, "Барс-имущество 3.0"){
+    ContainerQueue(api, "API Gateway", "Nginx", "Взаимодействие с внешними сервисами, аутентификация клиентов и пользователей")
+    ContainerQueue(kafka, "Kafka Broker", "Kafka", "Брокер сообщений для обмена данными между сервисами")
+    Container(barsDesktop, "Desktop App", "Java", "Десктоп приложение для доступа к функциям системы")
     
-    Boundary(msRegistrationClient, "Микросервис регистрации клиентов"){
-        Container(registrationClient, "Client registration service", "C#, .NET", "Сервис регистрации клиентов")
-        ContainerDb(dbRegistrationClient, "Client registration database", "PostgreSQL", "Хранение данных регистрации клиентов")
+    Boundary(msService, "Сервис услуг"){
+        Container(serviceKcr, "Provision service", "Java", "Сервис для оказания услуг заявителей")
+        ContainerDb(dbServiceKcr, "Provision service database", "PostgreSQL", "Хранение информации об услугах (ЦАР)")
     }
-    Boundary(msRegistrationUser, "Микросервис регистрации пользователей"){
-        Container(registrationUser, "User registration service", "C#, .NET", "Сервис регистрации пользователей")
-        ContainerDb(dbRegistrationUser, "User registration database", "PostgreSQL", "Хранение данных регистрации пользователей")
+    Boundary(monolit, "Монолит"){
+        Container(serviceMonolit, "Monolit", "Java", "Монолит, основная БЛ")
+        ContainerDb(dbMonolit, "Monolit database", "PostgreSQL", "Хранение данных")
     }
-    Boundary(msСlientLK, "Микросервис личного кабинета клиента"){
-        Container(clientLK, "Client account management service", "C#, .NET", "Сервис управления личным кабинетом клиента")
-        ContainerDb(dbClientLK, "Client account management database", "PostgreSQL", "Хранение данных личных кабинетов клиентов")
-    }
-    Boundary(msUserLK, "Микросервис личного кабинета пользователя"){
-        Container(userLK, "User account management service", "C#, .NET", "Сервис управления личным кабинетом пользователя")
-        ContainerDb(dbUserLK, "User account management database", "PostgreSQL", "Хранение данных личнвх кабинетов пользователей")
-    }
-    Boundary(msBookingTable, "Микросервис бронирования"){
-        Container(bookingTable, "Booking table module", "C#, .NET", "Сервис бронирования столика пользователем")
-        ContainerDb(dbBookingTable, "Booking table database", "PostgreSQL", "Хранение данных о бронированиях")
-    }
-    Boundary(service, "Микросервис логирования") {
-        Container(logUI, "Log UI", "Kibana", "Просмотр логов")
-        Container(log, "Logging system", "Elasticsearch", "Управление логированием и хранение логов")
-    }
-    
+    Boundary(msMicrosmev, "Микросмэв"){
+        Container(microsmev, "Microsmev service", "Java", "Сервис взаимодействия с внешними системами через СМЭВ")
+        ContainerDb(dbMicrosmev, "Microsmev database", "PostgreSQL", "Хранение данных межвед. запросов")
+    }   
 }
 
-    System_Ext(rusprofile, "Rusprofile", "Сервис проверки контрагентов")
-    System_Ext(maps, "Google Maps", "Просмотр информации о ресторанах на карте")
-    System_Ext(analitics, "Google Analitycs", "Система веб-аналитики")
-    System_Ext(rkeeper, "R-Keeper", "Сервис автоматизации бронирвания столиков")
-    System_Ext(email, "E-mail server", "Хранение и передача информационных сообщений")
+System_Ext(epgu, "ЕПГУ", "Портал госуслуг")
+System_Ext(mfc, "МФЦ", "Многофункциональный центр")
 
+Rel_D(user, barsDesktop, " ")
 
-BiRel_D(registrationUser, dbRegistrationUser, "Чтение и запись в БД", "ODBC")
-BiRel_D(registrationClient, dbRegistrationClient, "Чтение и запись в БД", "ODBC")
-BiRel_D(clientLK, dbClientLK, "Чтение и запись в БД", "ODBC")
-BiRel_D(userLK, dbUserLK, "Чтение и запись в БД", "ODBC")
-BiRel_D(bookingTable, dbBookingTable, "Чтение и запись в БД", "ODBC")
-Rel_D(logUI, log, "Запрашивает данные для визуализации", "REST/HTTP")
+Rel_D(client, epgu, "Подать заявление")
+Rel_D(client, mfc, "Подать заявление")
+Rel_D(client, user, "Подать заявление (лично)")
 
-Rel_D(user, mobileApp, " ")
-Rel_D(user, webUI, " ")
-Rel_D(manager, webUI, " ")
-Rel_D(client, webUI, " ")
+BiRel_D(serviceKcr, dbServiceKcr, "Чтение и запись в БД", "ODBC")
+BiRel_D(serviceMonolit, dbMonolit, "Чтение и запись в БД", "ODBC")
+BiRel_D(microsmev, dbMicrosmev, "Чтение и запись в БД", "ODBC")
 
-Rel_D(mobileApp, api, "Перенаправляет запросы", "HTTPS")
-Rel_D(webUI, api, "Перенаправляет запросы", "HTTPS")
+BiRel_D(serviceMonolit, kafka, "Отправка/получение сообщений", "Kafka")
+BiRel_D(microsmev, kafka, "Отправка/получение сообщений", "Kafka")
+BiRel_D(serviceKcr, kafka, "Отправка/получение сообщений", "Kafka")
 
-Rel_D(api, registrationUser, "Регистрация пользователя", "REST/HTTP")
-Rel_D(api, registrationClient, "Регистрация клиента", "REST/HTTP")
-Rel_D(api, clientLK, "Доступ к личному кабинету клиента", "REST/HTTP")
-Rel_D(api, userLK, "Доступ к личному кабинету пользователя", "REST/HTTP")
-Rel_D(api, bookingTable, "Бронирование", "REST/HTTP")
-Rel_L(api, log, "Передает логи", "REST/HTTP")
+Rel_D(barsDesktop, serviceMonolit, "Аутентификация/авторизация", "HTTPS")
 
-Rel(bookingTable, rkeeper, "Статусы столиков", "REST/HTTP")
-Rel(api, email, "Запросы на отправку сообщения", "SMTP")
-Rel_L(registrationClient, rusprofile, "Информация о клиенте", "REST/HTTP")
-Rel(webUI, analitics, "Данные для формирования отчетов", "REST/HTTP")
-Rel(mobileApp, analitics, "Данные для формирования отчетов", "REST/HTTP")
-Rel(webUI, maps, "Отображение карты внутри приложения")
-Rel(mobileApp, maps, "Отображение карты внутри приложения")
+BiRel_D(mfc, microsmev, "Получение/отправка информации", "SOAP")
+BiRel_D(epgu, microsmev, "Получение/отправка информации", "SOAP")
+
+Rel_D(api, serviceKcr, "Работа с услугами (ЦАР)", "REST/HTTP")
+Rel_D(api, serviceMonolit, "Доступ к основному функционалу", "REST/HTTP")
+Rel_D(api, microsmev, "Отправка запросов в межвед.органы через СМЭВ", "REST/HTTP")
 
 @enduml
