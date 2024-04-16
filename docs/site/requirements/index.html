@@ -473,51 +473,12 @@
 <p>Основные функции системы представлены в виде UseCase диаграммы.  </p>
 <p><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/usecase.svg"><img alt="" src="../diagrams/out/usecase.svg"/></a></p>
 <h3 id="usecase-mvp"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2</span> Описание UseCase, реализуемых в рамках MVP<a class="headerlink" href="#usecase-mvp" title="Permanent link">¶</a></h3>
-<h4 id="_13"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.1</span> Аутентификация пользователя<a class="headerlink" href="#_13" title="Permanent link">¶</a></h4>
+<h4 id="_13"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.1</span> Загрузка ЦАР через СМЭВ<a class="headerlink" href="#_13" title="Permanent link">¶</a></h4>
 <table>
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-1: Аутентификация пользователя</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Краткое описание</td>
-<td>Вход в систему</td>
-</tr>
-<tr>
-<td>Субъекты</td>
-<td>1. Пользователь<br/>2. Система</td>
-</tr>
-<tr>
-<td>Предусловие</td>
-<td>Создана учетная запись пользователя</td>
-</tr>
-<tr>
-<td>Основной сценарий</td>
-<td>1. Пользователь вводить учетные данные и нажимает кнопку N1. <br/>1. Если логин или пароль введены некорректно - AF-1 <br/>2. Аутентификация пройдена. Система открывает главную страницу. Конец сценария.</td>
-</tr>
-<tr>
-<td>Альтернативный сценарий</td>
-<td>AF1: Информация заполнена некорректно. <br/>1. Система выводит пользователю информационное сообщение о том, что введены некорректные данные и кнопку N2.<br/>    2. Пользователь нажимает N2. Конец сценария.</td>
-</tr>
-<tr>
-<td>Наименования элементов пользовательского интерфейса</td>
-<td>N1: "Войти" <br/>N2: "Ок"</td>
-</tr>
-<tr>
-<td>Диаграмма</td>
-<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/auth.svg"><img alt="" src="../diagrams/out/auth.svg" width="100"/></a></td>
-</tr>
-</tbody>
-</table>
-<h4 id="_14"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.2</span> Загрузка ЦАР через СМЭВ<a class="headerlink" href="#_14" title="Permanent link">¶</a></h4>
-<table>
-<thead>
-<tr>
-<th>Название</th>
-<th>UC-2: Загрузка ЦАР через СМЭВ</th>
+<th>UC-1: Загрузка ЦАР через СМЭВ</th>
 </tr>
 </thead>
 <tbody>
@@ -547,12 +508,12 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_15"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.3</span> Загрузка ЦАР вручную<a class="headerlink" href="#_15" title="Permanent link">¶</a></h4>
+<h4 id="_14"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.2</span> Загрузка ЦАР вручную<a class="headerlink" href="#_14" title="Permanent link">¶</a></h4>
 <table>
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-3: Загрузка ЦАР вручную</th>
+<th>UC-2: Загрузка ЦАР вручную</th>
 </tr>
 </thead>
 <tbody>
@@ -586,12 +547,12 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_16"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.4</span> Просмотр информации о ЦАР<a class="headerlink" href="#_16" title="Permanent link">¶</a></h4>
+<h4 id="_15"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.3</span> Просмотр информации о ЦАР<a class="headerlink" href="#_15" title="Permanent link">¶</a></h4>
 <table>
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-4: Просмотр информации о ЦАР</th>
+<th>UC-3: Просмотр информации о ЦАР</th>
 </tr>
 </thead>
 <tbody>
@@ -617,12 +578,12 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_17"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.5</span> Просмотр информации о подуслугах<a class="headerlink" href="#_17" title="Permanent link">¶</a></h4>
+<h4 id="_16"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.4</span> Просмотр информации о подуслугах<a class="headerlink" href="#_16" title="Permanent link">¶</a></h4>
 <table>
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-5: Просмотр информации о подуслугах</th>
+<th>UC-4: Просмотр информации о подуслугах</th>
 </tr>
 </thead>
 <tbody>
@@ -648,49 +609,18 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_18"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.6</span> Просмотр истории изменений ЦАР<a class="headerlink" href="#_18" title="Permanent link">¶</a></h4>
+<h4 id="_17"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.5</span> Ручное создание обращений<a class="headerlink" href="#_17" title="Permanent link">¶</a></h4>
 <table>
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-6: Просмотр истории изменений ЦАР</th>
+<th>UC-5: Ручное создание обращений</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Краткое описание</td>
-<td>Просмотр информации о версиях изменений ЦАР</td>
-</tr>
-<tr>
-<td>Субъекты</td>
-<td>1. Пользователь<br/>2. Система</td>
-</tr>
-<tr>
-<td>Предусловие</td>
-<td>Пользователь зашел в реестр услуг</td>
-</tr>
-<tr>
-<td>Основной сценарий</td>
-<td>1. Пользователь нажимает на кнопку N1.<br/>2. Система открывает окно с информацией о версиях изменения ЦАР (версия, дата изменения). Конец сценария.</td>
-</tr>
-<tr>
-<td>Наименования элементов пользовательского интерфейса</td>
-<td>N1: "История изменений"</td>
-</tr>
-</tbody>
-</table>
-<h4 id="_19"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.7</span> Создание обращений<a class="headerlink" href="#_19" title="Permanent link">¶</a></h4>
-<table>
-<thead>
-<tr>
-<th>Название</th>
-<th>UC-7: Создание обращений</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Краткое описание</td>
-<td>Создание обращений для оказания услуги</td>
+<td>Ручное создание обращений для оказания услуги</td>
 </tr>
 <tr>
 <td>Субъекты</td>
@@ -702,7 +632,7 @@
 </tr>
 <tr>
 <td>Основной сценарий</td>
-<td>1. Пользователь нажимает кнопку N1.<br/>2. Система открывает окно создания обращений.<br/>3. Пользователь выбирает услугу, подуслугу.<br/>4. На основании выбранной информации, система выводит поля для заполнения.<br/>5. Пользователь заполняет необходимые поля<br/>6. Пользователь нажимает кнопку N2.<br/>7. Система сохраняет введеную информацию. Конец сценария.</td>
+<td>1. Пользователь нажимает кнопку N1.<br/>2. Система открывает окно создания обращений.<br/>3. Пользователь выбирает услугу.<br/>4. На основании выбранной информации, система рисует выпадающий список с подуслугой.<br/>5. Пользователь выбирает подуслугу<br/>6. На основании выбранной подуслуги система рисует поля для профилирования.<br/>7. Пользователь заполняет все поля и нажимает кнопку N2.<br/>8. Система сохраняет введеную информацию в БД. Конец сценария.</td>
 </tr>
 <tr>
 <td>Наименования элементов пользовательского интерфейса</td>
@@ -710,16 +640,47 @@
 </tr>
 <tr>
 <td>Диаграмма</td>
-<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/create_task.svg"><img alt="" src="../diagrams/out/create_task.svg" width="100"/></a></td>
+<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/create_task.jpg"><img alt="" src="../diagrams/out/create_task.jpg" width="100"/></a></td>
 </tr>
 </tbody>
 </table>
-<h4 id="_20"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.8</span> Обработка обращений<a class="headerlink" href="#_20" title="Permanent link">¶</a></h4>
+<h4 id="_18"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.6</span> Автоматическое создание обращений<a class="headerlink" href="#_18" title="Permanent link">¶</a></h4>
 <table>
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-10: Обработка обращений</th>
+<th>UC-6: Автоматическое создание обращений</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Краткое описание</td>
+<td>Создание обращений для оказания услуги</td>
+</tr>
+<tr>
+<td>Субъекты</td>
+<td>Система</td>
+</tr>
+<tr>
+<td>Предусловие</td>
+<td>Микросмэв получил информацию о заявлении из СМЭВ</td>
+</tr>
+<tr>
+<td>Основной сценарий</td>
+<td>1. Микросмэв кидает вебхук в монолит.<br/>2. Монолит запрашивает список услуг и подуслуг у сервиса услуг.<br/>3. Сервис услуг отдает информацию.<br/>4. Монолит обрабатывает информацию. Конец сценария.</td>
+</tr>
+<tr>
+<td>Диаграмма</td>
+<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/auto_create_task.jpg"><img alt="" src="../diagrams/out/auto_create_task.jpg" width="100"/></a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_19"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.7</span> Обработка обращений<a class="headerlink" href="#_19" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>UC-7: Обработка обращений</th>
 </tr>
 </thead>
 <tbody>
@@ -733,23 +694,46 @@
 </tr>
 <tr>
 <td>Предусловие</td>
-<td>Пользователь зашел в реестр обращений</td>
+<td>1. Пользователь зашел в реестр обращений<br/>2. Создано обращение в рамках UC-5 или UC-6</td>
 </tr>
 <tr>
 <td>Основной сценарий</td>
-<td>1. Пользователь нажимает кнопку N1. <br/>2. Система меняет статус - UC-11 и добавляет новую вкладку N2.<br/>3. Пользователь нажимает кнопку N3.<br/>1. Если пользователь нажимает кнопку N4 - AF-1<br/>4. Система меняет статус - UC-11 и открывает окно для создания резолюции.<br/>5. Пользователь заполняет поля и нажимает N5. Конец сценария.</td>
-</tr>
-<tr>
-<td>Альтернативный сценарий</td>
-<td>AF1: Отказ в предоставлении услуги.<br/>1. Система меняет статус - UC-11 и открывает окно для создания резолюции.<br/>2. Пользователь заполняет поля и нажимает N5. Конец сценария.</td>
+<td>0. Пользователь нажимает на вкладку N0.<br/>1. Пользователь нажимает кнопку N1, выполнение сценария UC-11.<br/>2. Система добавляет новую вкладку N2, выполнение сценария UC-9.<br/>3. Пользователь переходит на вкладку N2.<br/>4. Пользователь нажимает кнопку N3.<br/>5. Система добавляет вкладку N6, пользователь нажимает на вкладку N6. Выполнение сценария UC-10. Конец сценария.</td>
 </tr>
 <tr>
 <td>Наименования элементов пользовательского интерфейса</td>
-<td>N1: "Зарегистрировать" <br/>N2: "Межведомственное взаимодействие" <br/>N3: "Принять решение" <br/>N4: "Отказ" <br/>N5: "Сохранить"</td>
+<td>N0: "Прием заявления" <br/>N1: "Зарегистрировать" <br/>N2: "Межведомственное взаимодействие" <br/>N3: "Принять решение" <br/>N5: "Сохранить"<br/>N6: "Предоставление результата"</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_20"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.8</span> Автоматическое изменение статуса на основании ЦАР<a class="headerlink" href="#_20" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>UC-8: Автоматическое изменение статуса на основании ЦАР</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Краткое описание</td>
+<td>Создание межведомственных запросов для проведения документарной проверки</td>
+</tr>
+<tr>
+<td>Субъекты</td>
+<td>Система</td>
+</tr>
+<tr>
+<td>Предусловие</td>
+<td>Выполялись сценарии UC-9, UC-10 или UC-11</td>
+</tr>
+<tr>
+<td>Основной сценарий</td>
+<td>1. Монолит получает список событий у сервиса услуг.<br/>2. Сервис услуг возвращает события, монолит обрабатывает события.<br/>3. Монолит отправляет запрос в микросмэв для смены статусов.<br/>4. Микросмэв возвращает 200.<br/>5. Монолит меняет статус записи в БД. Конец сценария.</td>
 </tr>
 <tr>
 <td>Диаграмма</td>
-<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/do_task.svg"><img alt="" src="../diagrams/out/do_task.svg" width="100"/></a></td>
+<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/auto_change_status.jpg"><img alt="" src="../diagrams/out/auto_change_status.jpg" width="100"/></a></td>
 </tr>
 </tbody>
 </table>
@@ -758,7 +742,7 @@
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-12: Создание межведомственных запросов</th>
+<th>UC-9: Создание межведомственных запросов</th>
 </tr>
 </thead>
 <tbody>
@@ -776,7 +760,7 @@
 </tr>
 <tr>
 <td>Основной сценарий</td>
-<td>1. Пользователь на вкладке N1 нажимает кнопку N2.<br/>2. Система меняет статус обращения и отрисовывает вкладку N3.<br>3. Пользователь переходит на вкладку N3 и нажимает кнопку N4.<br/> 1. Если в системе есть ВС и настроено автоматическая отправка запросов - AF-1<br/>4. Запрос отправлен. В UI отображается статус "Запрос обрабатывается". Конец сценария.</br></td>
+<td>1. Пользователь на вкладке N1 нажимает кнопку N2.<br/>2. Система меняет статус обращения и отрисовывает вкладку N3.<br/>3. Пользователь переходит на вкладку N3 и нажимает кнопку N4.<br/> 1. Если в системе есть ВС и настроено автоматическая отправка запросов - AF-1<br/>4. Запрос отправлен. В UI отображается статус "Запрос обрабатывается". Конец сценария.</td>
 </tr>
 <tr>
 <td>Альтернативный сценарий</td>
@@ -792,18 +776,127 @@
 </tr>
 </tbody>
 </table>
-<h4 id="_22"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.10</span> Настройка прав пользователей в сервисе услуг<a class="headerlink" href="#_22" title="Permanent link">¶</a></h4>
+<h4 id="_22"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.10</span> Принятие решения<a class="headerlink" href="#_22" title="Permanent link">¶</a></h4>
 <table>
 <thead>
 <tr>
 <th>Название</th>
-<th>UC-13: Настройка прав пользователей в сервисе услуг</th>
+<th>UC-10: Принятие решения</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>Краткое описание</td>
-<td>Возможность настройки прав доступа пользователей в сервисе услуг.</td>
+<td>Создание межведомственных запросов для проведения документарной проверки</td>
+</tr>
+<tr>
+<td>Субъекты</td>
+<td>1. Пользователь<br/>2. Система</td>
+</tr>
+<tr>
+<td>Предусловие</td>
+<td>Пользователь зашел в реестр обращений</td>
+</tr>
+<tr>
+<td>Основной сценарий</td>
+<td>1. Пользователь на вкладке N1 нажимает кнопку N2.<br/>2. Система меняет статус обращения и отрисовывает вкладку N3.<br/>3. Пользователь переходит на вкладку N3 и нажимает кнопку N4.<br/> 1. Если в системе есть ВС и настроено автоматическая отправка запросов - AF-1<br/>4. Запрос отправлен. В UI отображается статус "Запрос обрабатывается". Конец сценария.</td>
+</tr>
+<tr>
+<td>Альтернативный сценарий</td>
+<td>AF1: Запросы направлены автоматически. <br/>1. Система автоматически создает и отправлять межведомственные запросы.<br/>2. Переход к п.4 основного сценария. Конец сценария.</td>
+</tr>
+<tr>
+<td>Наименования элементов пользовательского интерфейса</td>
+<td>N1: "Прием заявлений"<br/>N2: "Зарегистрировать"<br/>N3: "Межведомственное взаимодействие"<br/>N4: "Запрос"</td>
+</tr>
+<tr>
+<td>Диаграмма</td>
+<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/create_requests.svg"><img alt="" src="../diagrams/out/create_requests.svg" width="100"/></a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_23"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.11</span> Регистрация заявления<a class="headerlink" href="#_23" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>UC-11: Регистрация заявления</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Краткое описание</td>
+<td>Создание межведомственных запросов для проведения документарной проверки</td>
+</tr>
+<tr>
+<td>Субъекты</td>
+<td>1. Пользователь<br/>2. Система</td>
+</tr>
+<tr>
+<td>Предусловие</td>
+<td>Пользователь зашел в реестр обращений</td>
+</tr>
+<tr>
+<td>Основной сценарий</td>
+<td>1. Пользователь на вкладке N1 нажимает кнопку N2.<br/>2. Система меняет статус обращения и отрисовывает вкладку N3.<br/>3. Пользователь переходит на вкладку N3 и нажимает кнопку N4.<br/> 1. Если в системе есть ВС и настроено автоматическая отправка запросов - AF-1<br/>4. Запрос отправлен. В UI отображается статус "Запрос обрабатывается". Конец сценария.</td>
+</tr>
+<tr>
+<td>Альтернативный сценарий</td>
+<td>AF1: Запросы направлены автоматически. <br/>1. Система автоматически создает и отправлять межведомственные запросы.<br/>2. Переход к п.4 основного сценария. Конец сценария.</td>
+</tr>
+<tr>
+<td>Наименования элементов пользовательского интерфейса</td>
+<td>N1: "Прием заявлений"<br/>N2: "Зарегистрировать"<br/>N3: "Межведомственное взаимодействие"<br/>N4: "Запрос"</td>
+</tr>
+<tr>
+<td>Диаграмма</td>
+<td><a class="glightbox" data-desc-position="bottom" data-height="auto" data-type="image" data-width="auto" href="../diagrams/out/create_requests.svg"><img alt="" src="../diagrams/out/create_requests.svg" width="100"/></a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="_24"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.12</span> Настройка прав пользователей<a class="headerlink" href="#_24" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>UC-12: Настройка прав пользователей</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Краткое описание</td>
+<td>Настройка прав пользователей в справочнике услуг и реестре обращений</td>
+</tr>
+<tr>
+<td>Субъекты</td>
+<td>1. Администратор<br/>2. Система</td>
+</tr>
+<tr>
+<td>Предусловие</td>
+<td>Создана учетная запись администратора<br/>Создана учетная запись пользователя</td>
+</tr>
+<tr>
+<td>Основной сценарий</td>
+<td>1. Администратор открыл меню с настройкой прав доступа пользователей.<br/>2. Администратор выбирает пользователя, для которого хочет выполнить настройку прав.<br/>3. Система отрисовывает в правой части меню Типы операций и Типы элементов реестра.<br/>4. Администратор настраивает CRUD и сохраняет права для пользователя.<br/>5. Система применяет настройки. Конец сценария.</td>
+</tr>
+<tr>
+<td>Типы регулируемых прав</td>
+<td>1. CRUD.<br/>2. Тип оперции - "Загрузка ЦАР".<br/>3. Тип операции - "Запрос ЦАР".</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_25"><span class="enumerate-headings-plugin enumerate-heading-plugin">5.2.2.13</span> Создание резолюции<a class="headerlink" href="#_25" title="Permanent link">¶</a></h4>
+<table>
+<thead>
+<tr>
+<th>Название</th>
+<th>UC-13: Создание резолюции</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Краткое описание</td>
+<td>Настройка прав пользователей в справочнике услуг и реестре обращений</td>
 </tr>
 <tr>
 <td>Субъекты</td>

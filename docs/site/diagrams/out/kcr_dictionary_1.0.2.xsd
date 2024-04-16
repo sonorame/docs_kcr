@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn://rostelekom.ru/KCR/dictionary/1.0.2" targetNamespace="urn://rostelekom.ru/KCR/dictionary/1.0.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xsd:element name="DictionaryRequest" type="tns:dictionaryRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Запрос справочников КЦР</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:element name="DictionaryResponse" type="tns:dictionaryResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Справочники КЦР</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="dictionaryRequestType">
+		<xsd:annotation>
+			<xsd:documentation>Справочники КЦР</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="type" type="tns:typeType">
+				<xsd:annotation>
+					<xsd:documentation>Тип запроса</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dictionaryCode" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Код запрашиваемого справочника</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="date" type="xsd:date" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Дата последнего изменения</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="dictionaryResponseType">
+		<xsd:annotation>
+			<xsd:documentation>Справочники КЦР</xsd:documentation>
+		</xsd:annotation>
+		<xsd:choice>
+			<xsd:element name="codes" type="tns:codesType">
+				<xsd:annotation>
+					<xsd:documentation>Коды справочников</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="dictionaries" type="tns:dictionariesType">
+				<xsd:annotation>
+					<xsd:documentation>Справочники</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="codesType">
+		<xsd:annotation>
+			<xsd:documentation>Коды справочников</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="dictionary" type="tns:dictionaryCodeType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Справочник</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="dictionaryCodeType">
+		<xsd:annotation>
+			<xsd:documentation>Коды справочников</xsd:documentation>
+		</xsd:annotation>
+		<xsd:attribute name="code" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Код справочника</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="name" type="xsd:string" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Наименование справочника</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+		<xsd:attribute name="updateDate" type="xsd:date" use="required">
+			<xsd:annotation>
+				<xsd:documentation>Дата актуализации справочника</xsd:documentation>
+			</xsd:annotation>
+		</xsd:attribute>
+	</xsd:complexType>
+	<xsd:complexType name="dictionariesType">
+		<xsd:annotation>
+			<xsd:documentation>Справочники КЦР</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="fileName" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Имя файла архива</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="fileDictionary" type="tns:fileDictionaryType" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Файл справочника</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="fileDictionaryType">
+		<xsd:annotation>
+			<xsd:documentation>Файл справочника</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:string">
+				<xsd:attribute name="updateDate" type="xsd:date" use="required">
+					<xsd:annotation>
+						<xsd:documentation>Дата актуализации справочника</xsd:documentation>
+					</xsd:annotation>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<xsd:simpleType name="typeType">
+		<xsd:annotation>
+			<xsd:documentation>Тип запроса</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:byte">
+			<xsd:enumeration value="1">
+				<xsd:annotation>
+					<xsd:documentation>Запрос перечня кодов справочников КЦР</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+			<xsd:enumeration value="2">
+				<xsd:annotation>
+					<xsd:documentation>Запрос справочников КЦР</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

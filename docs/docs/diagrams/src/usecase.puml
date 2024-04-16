@@ -5,47 +5,46 @@ skinparam packageStyle rectangle
 actor "Пользователь" as usr
 actor "Администратор" as adm
 
-
-rectangle "Сервис услуг" {
-  usecase (UC-1: MVP Аутентификация/авторизация пользователя) as authUl
-  usecase (UC-13: Настройка прав пользователей в сервисе услуг) as settingsUsr
-  rectangle "Реестр услуг" {
-    'Пользователь
-
-    'usecase (UC-: MVP Загрузка ЦАР) as uploadCar
-    usecase (UC-2: MVP Загрузка ЦАР через СМЭВ) as uploadCarSMEV
-    usecase (UC-3: MVP Загрузка ЦАР вручную) as uploadCarManual
-    usecase (UC-4: MVP Просмотреть информации о ЦАР) as viewInfoCar
-    usecase (UC-5: MVP Просмотреть информации о подуслугах) as viewInfoSubcar
-
-    'usecase (UC-: Переход из реестра услуг в реестр обращений) as relocateCarToTask
-    usecase (UC-6: Просмотр истории изменений ЦАР) as viewHistoryCar
-     
-    authUl <.. uploadCarSMEV: include
-    uploadCarSMEV <.. uploadCarManual: extend
-    authUl <.. viewInfoCar: include
-    viewInfoCar <.. viewInfoSubcar: include
-    viewInfoCar <.. viewHistoryCar: include      
-  }
+rectangle "Монолит" {
+  usecase (UC-12: MVP Настройка прав пользователей в справочнике услуг и реестре обращений) as settingsUsr
   rectangle "Реестр обращений" {
-    'Пользователь
-    usecase (UC-7: MVP Создание обращений) as createTasks
-    usecase (UC-8: MVP Автоматическое создание обращений) as autoCreateTasks
-    usecase (UC-9: MVP Автоматическое привязывание обращений к ЦАР) as autoLinkTaskToCar
-    usecase (UC-10: MVP Обработка обращений) as doTasks
-    usecase (UC-11: MVP Автоматическое изменение статуса на основании ЦАР) as autoChangeStatus
-    usecase (UC-12: MVP Создать межведомственные запросы) as createSMEVRequests
-
-    authUl <.. createTasks: include
-    createTasks <.. autoCreateTasks: extend
-    createTasks <.. autoLinkTaskToCar: include
-    createTasks <.. doTasks: include
-    doTasks <.. autoChangeStatus: include
-    doTasks <.. createSMEVRequests: include
+      'Пользователь
+      usecase (UC-5: MVP Ручное создание обращений) as createTasks
+      usecase (UC-6: MVP Автоматическое создание обращений) as autoCreateTasks
+      usecase (UC-7: MVP Обработка обращений) as doTasks
+      usecase (UC-8: MVP Автоматическое изменение статуса на основании ЦАР) as autoChangeStatus
+      usecase (UC-9: MVP Создание межведомственных запросов) as createSMEVRequest
+      usecase (UC-10: MVP Принятие решения) as decideTask
+      usecase (UC-11: MVP Регистрация заявления) as regTask
+      usecase (UC-13: MVP Создание резолюции) as createRezol
   }
 }
+rectangle "Сервис услуг" {
+  rectangle "Справочник услуг" {
+    'Пользователь
+    usecase (UC-1: MVP Загрузка ЦАР через СМЭВ) as uploadCarSMEV
+    usecase (UC-2: Загрузка ЦАР вручную) as uploadCarManual
+    usecase (UC-3: MVP Просмотр информации о ЦАР) as viewInfoCar
+    usecase (UC-4: MVP Просмотр информации о подуслугах) as viewInfoSubcar
+    usr -- uploadCarSMEV
+    uploadCarSMEV <.. uploadCarManual: extend
+    usr -- viewInfoCar
+    viewInfoCar <-- viewInfoSubcar
+  }
+  
+}
+usr -- doTasks
+doTasks <-- createSMEVRequest
+doTasks <-- decideTask
+createTasks <.. autoCreateTasks: extend
+usr -- createTasks
+doTasks <-- regTask
+createTasks <.. autoChangeStatus: include
+decideTask <.. autoChangeStatus: include
+decideTask <.. createRezol: include
+regTask <.. autoChangeStatus: include
+createSMEVRequest <.. autoChangeStatus: include
 
-usr -- authUl
 adm -- settingsUsr
 
 @enduml

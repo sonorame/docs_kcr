@@ -113,8 +113,8 @@ paths:
     post:
       tags:
         - Сервис услуг
-      summary: Создать этап целевой услуги
-      description: Создать информацию о целевом этапе целевой подуслуги
+      summary: Получить этап целевой услуги
+      description: Получить информацию о целевом этапе целевой подуслуги
       operationId: create_stage
       requestBody:
         required: true
@@ -151,8 +151,8 @@ paths:
     post:
       tags:
         - Сервис услуг
-      summary: Создать событие текущего этапа
-      description: Создать описание необходимого события с учетом результата текущего этапа.
+      summary: Получить событие текущего этапа
+      description: Получить описание необходимого события с учетом результата текущего этапа.
       operationId: create_events
       requestBody:
         required: true
