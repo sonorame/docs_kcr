@@ -41,6 +41,7 @@ usr -- createTasks
 doTasks <-- regTask
 createTasks <.. autoChangeStatus: include
 decideTask <.. autoChangeStatus: include
+regTask <.. createRezol: include
 decideTask <.. createRezol: include
 regTask <.. autoChangeStatus: include
 createSMEVRequest <.. autoChangeStatus: include
